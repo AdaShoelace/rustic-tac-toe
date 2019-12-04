@@ -2,6 +2,7 @@ use {
     super::util::Marker
 };
 
+#[derive(Clone)]
 pub struct Player {
     pub name: String,
     pub marker: Marker,

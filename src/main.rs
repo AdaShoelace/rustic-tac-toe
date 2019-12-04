@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate lazy_static;
 
+pub mod state;
 pub mod player;
 pub mod util;
 pub mod board;
@@ -11,6 +12,7 @@ use {
         Coord
     },
     player::Player,
+    state::Game,
     std::io,
 };
 
@@ -36,8 +38,12 @@ fn read_user_input(current_player: &Player) -> (Coord, Marker){
     }
 }
 
+
+
+
 fn main() {
-    loop {
-        read_user_input(&Player::new("Sven", Marker::X));
-    }
+    let player = Player::new("Pierre", Marker::X);
+    let mut game = Game::new(player);
+    game.board = game.board.add_marker((2,2), Marker::X);
+    println!("{}", game.board);
 }
