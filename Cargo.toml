@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["PierreLeidbring <pierre.leidbring@jayway.com>"]
 edition = "2018"
 
+[features]
+default = []
+
 [dependencies]
 redux-rs = "0.1.0"
 lazy_static = "1.4.0"

@@ -29,36 +29,33 @@ impl Default for Board {
 
 impl std::fmt::Display for Board {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let (first, last) = {
-            let mut first = String::new();
-            let mut last = String::new();
+        let separator = {
+            let mut separator = String::new();
             (0..=4 * BOARD_SIZE).for_each(|_| {
-                first.push_str("-");
-                last.push_str("-");
+                separator.push_str("-");
             });
-            (first, last)
+            separator
         };
 
         let board = {
             let mut board = String::new();
-
+            board.push_str(&format!("\t{:3} {:3} {:3}\n", 0, 1, 2));
+            board.push_str(&format!("\t{}\n", separator));
             self.cells
                 .to_vec()
                 .iter()
                 .enumerate()
                 .for_each(|(i, row)| {
-                    board.push_str("|");
+                    board.push_str(&format!("{}\t|", i));
                     row.iter()
                         .for_each(|cell| {
                             board.push_str(&format!(" {} |", cell));
                         });
-                    if i != BOARD_SIZE - 1 {
-                        board.push_str("\n")
-                    }
+                    board.push_str(&format!("\n\t{}\n", separator));
                 });
             board
         };
 
-        write!(f, "{}\n{}\n{}\n", first, board, last)
+        write!(f, "{}", board)
     }
 }
