@@ -10,21 +10,24 @@ pub mod board_checker;
 pub mod my_checker;
 
 use {
+    player::Player,
+    state::Game,
+    app::App,
+    std::io,
+    crate::{
+        my_checker::MyChecker
+    },
     util::{
         Marker,
         Coord,
         BOARD_SIZE
     },
-    player::Player,
-    state::Game,
-    app::App,
-    std::io,
 };
 
 fn main() {
 
     let players = get_new_players();
-    App::new(players.0, players.1, Box::new(crate::my_checker::MyChecker))
+    App::new(players.0, players.1, Box::new(MyChecker))
         .run();
 }
 
@@ -36,8 +39,8 @@ fn get_new_players() -> (Player, Player) {
         match io::stdin().read_line(&mut input) {
             Ok(_) => {
                 match i {
-                    0 => ret.0 = Some(Player::new(&input, Marker::X)),
-                    _ => ret.1 = Some(Player::new(&input, Marker::O))
+                    0 => ret.0 = Some(Player::new(&input.trim(), Marker::X)),
+                    _ => ret.1 = Some(Player::new(&input.trim(), Marker::O))
                 }
             }
             Err(error) => println!("error: {}", error),

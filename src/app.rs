@@ -5,6 +5,7 @@ use crate::{
     board_checker::{
         BoardChecker,
         DefaultChecker,
+        ScoreState
     },
     my_checker::MyChecker,
     util::{
@@ -40,14 +41,35 @@ impl App {
     }
 
     pub fn run(mut self) {
-        while self.game.is_playing {
+        loop {
             println!("{}", self.game.board);
+            match self.board_checker.check(&self.game.board, &self.player_x, &self.player_o) {
+                ScoreState::Won(player) => {
+                    println!("Player: {} won!", player.name);
+                    break;
+                },
+                ScoreState::Tie => {
+                    println!("The game ended in a tie!");
+                    break;
+                },
+                ScoreState::Continue => ()
+            }
             let last_move = get_move_input(&self.game.current_player);
-            self.game.board = self.game.board.add_marker(last_move.0, last_move.1);
+            match self.game.board.clone().add_marker(last_move.0, last_move.1) {
+                (board, true) => {
+                    self.game.board = board;
+                    if self.game.current_player == self.player_x {
+                        self.game.current_player = self.player_o.clone()
+                    } else {
+                        self.game.current_player = self.player_x.clone()
+                    }
+                },
+                (_, false) => {
+                    println!("Illegal move, coordinate already populated");
+                }
+            }
         }
     }
-
-
 }
 
 

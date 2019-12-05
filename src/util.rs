@@ -52,7 +52,7 @@ impl Into<Coord> for (usize, usize) {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Eq, PartialEq)]
 pub enum Marker {
     X,
     O,

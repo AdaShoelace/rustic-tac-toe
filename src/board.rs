@@ -9,13 +9,18 @@ use {
 
 #[derive(Clone)]
 pub struct Board {
-    cells: [[Marker; BOARD_SIZE]; BOARD_SIZE]
+    pub cells: [[Marker; BOARD_SIZE]; BOARD_SIZE]
 }
 
 impl Board {
-    pub fn add_marker<T: Into<Coord> + Point>(mut self, coord: T, marker: Marker) -> Self {
-        self.cells[coord.x()][coord.y()] = marker;
-        self
+    pub fn add_marker<T: Into<Coord> + Point>(mut self, coord: T, marker: Marker) -> (Self, bool) {
+        let (x, y) = (coord.x(), coord.y());
+        if self.cells[x][y] == Marker::Empty {
+            self.cells[x][y] = marker;
+            (self, true)
+        } else {
+            (self, false)
+        }
     }
 }
 
