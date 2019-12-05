@@ -4,7 +4,6 @@ use crate::{
     player::Player,
     board_checker::{
         BoardChecker,
-        DefaultChecker,
         ScoreState
     },
     util::{
@@ -28,14 +27,7 @@ impl App {
             game: Game::new(player_x.clone()),
             player_x,
             player_o,
-            board_checker: {
-                if cfg!(feature="default") {
-                    Box::new(DefaultChecker{})
-                } else {
-                    println!("MyChecker");
-                    board_checker
-                }
-            }
+            board_checker
         }
     }
 

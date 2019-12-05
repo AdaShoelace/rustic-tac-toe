@@ -11,15 +11,24 @@ use {
     app::App,
     std::io,
     crate::{
-        my_checker::MyChecker
+        my_checker::MyChecker,
+        board_checker::{
+            DefaultChecker,
+            BoardChecker
+        },
     },
     util::Marker,
 };
 
 fn main() {
+    #[cfg(feature = "default")]
+    let checker: Box<dyn BoardChecker> = Box::new(DefaultChecker);
+
+    #[cfg(not(feature = "default"))]
+    let checker: Box<dyn BoardChecker> = Box::new(MyChecker);
 
     let players = get_new_players();
-    App::new(players.0, players.1, Box::new(MyChecker))
+    App::new(players.0, players.1, checker)
         .run();
 }
 

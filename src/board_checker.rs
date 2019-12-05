@@ -20,8 +20,9 @@ pub struct DefaultChecker;
 
 impl BoardChecker for DefaultChecker {
     fn check(&self, board: &Board, player_x: &Player, player_o: &Player) -> ScoreState {
-        match (self.crossed(board), self.column(board), self.row(board)) {
-            (Some(marker), _, _) | (_, Some(marker), _) | (_, _, Some(marker)) => ScoreState::Won(if player_x.marker == marker { player_x.clone() } else { player_o.clone() }),
+        match (self.crossed(board), self.column(board), self.row(board), self.full_board(board)) {
+            (Some(marker), _, _, _) | (_, Some(marker), _, _) | (_, _, Some(marker), _) => ScoreState::Won(if player_x.marker == marker { player_x.clone() } else { player_o.clone() }),
+            (_, _, _, true) => ScoreState::Tie,
             _ => ScoreState::Continue
         }
     }
@@ -70,5 +71,14 @@ impl DefaultChecker {
                 }
         }
         None
+    }
+
+    fn full_board(&self, board: &Board) -> bool {
+        for row in board.cells.iter() {
+            if row.contains(&Marker::Empty) {
+                return false
+            }
+        }
+        true
     }
 }
