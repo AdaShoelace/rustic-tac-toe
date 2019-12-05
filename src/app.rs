@@ -7,7 +7,6 @@ use crate::{
         DefaultChecker,
         ScoreState
     },
-    my_checker::MyChecker,
     util::{
         Marker,
         Coord,

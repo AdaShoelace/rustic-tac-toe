@@ -1,7 +1,6 @@
 use {
     crate::{
         board_checker::{BoardChecker, ScoreState},
-        util::Marker,
         player::Player,
         board::Board
     }
@@ -11,7 +10,7 @@ use {
 pub struct MyChecker;
 
 impl BoardChecker for MyChecker {
-    fn check(&self, board: &Board, player_x: &Player, player_o: &Player) -> ScoreState {
+    fn check(&self, _board: &Board, _player_x: &Player, _player_o: &Player) -> ScoreState {
         unimplemented!()
     }
 }

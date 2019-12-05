@@ -1,6 +1,3 @@
-#[macro_use]
-extern crate lazy_static;
-
 pub mod state;
 pub mod player;
 pub mod util;
@@ -11,17 +8,12 @@ pub mod my_checker;
 
 use {
     player::Player,
-    state::Game,
     app::App,
     std::io,
     crate::{
         my_checker::MyChecker
     },
-    util::{
-        Marker,
-        Coord,
-        BOARD_SIZE
-    },
+    util::Marker,
 };
 
 fn main() {
