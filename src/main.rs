@@ -21,10 +21,10 @@ use {
 };
 
 fn main() {
-    #[cfg(feature = "default")]
+    #[cfg(feature = "test")]
     let checker: Box<dyn BoardChecker> = Box::new(DefaultChecker);
 
-    #[cfg(not(feature = "default"))]
+    #[cfg(not(feature = "test"))]
     let checker: Box<dyn BoardChecker> = Box::new(MyChecker);
 
     let players = get_new_players();
